@@ -1,0 +1,104 @@
+:root{
+  --limestone:#FCF9F2;
+  --ink:#241F1B;
+  --rosa:#C1447E;
+  --rosa-deep:#9E2F63;
+  --volt:#E8A93C;
+  --volt-deep:#C6841F;
+  --henequen:#3A7D6B;
+  --card:#FFFFFF;
+  --line:#E7DFCF;
+  --muted:#8a7f6d;
+  --shadow: 0 10px 30px rgba(36,31,27,0.14);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--limestone);color:var(--ink);font-family:'Montserrat',sans-serif;}
+
+.devBanner{
+  background:var(--ink); color:#F4D89A; text-align:center; font-size:11.5px; font-weight:600;
+  padding:7px 10px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em;
+}
+
+.page{ max-width:640px; margin:0 auto; padding:56px 24px 40px; }
+
+/* ---- Hero ---- */
+.hero{ text-align:center; margin-bottom:34px; }
+.brandMark{
+  width:56px; height:56px; margin:0 auto 14px; border-radius:16px;
+  background:linear-gradient(135deg, var(--volt), var(--volt-deep));
+  color:#fff; display:flex; align-items:center; justify-content:center; font-size:26px;
+  box-shadow:0 6px 16px rgba(198,132,31,0.4);
+}
+.hero h1{ font-size:32px; font-weight:800; margin:0; letter-spacing:0.2px;}
+.wave{ width:160px; height:20px; margin:10px auto 18px; display:block; }
+.wave path{ stroke-dasharray:6 8; animation:flow 3.5s linear infinite; }
+@media (prefers-reduced-motion: reduce){ .wave path{ animation:none; } }
+@keyframes flow{ to{ stroke-dashoffset:-140; } }
+.tagline{ font-size:17px; font-weight:600; margin:0 0 8px; color:var(--ink);}
+.subtagline{ font-size:13.5px; color:var(--muted); margin:0; line-height:1.55; max-width:440px; margin:0 auto;}
+
+/* ---- Tarjeta de sesión ---- */
+.authCard{
+  background:var(--card); border:1px solid var(--line); border-radius:20px; padding:22px 24px 26px;
+  box-shadow:var(--shadow); margin-bottom:46px;
+}
+.authTabs{ display:flex; gap:6px; background:#F5F1E8; border-radius:11px; padding:4px; margin-bottom:14px;}
+.authTab{
+  flex:1; border:none; background:none; padding:9px 10px; border-radius:8px; cursor:pointer;
+  font-family:'Montserrat',sans-serif; font-size:12.5px; font-weight:700; color:var(--muted); transition:all .15s;
+}
+.authTab.active{ background:var(--card); color:var(--ink); box-shadow:0 2px 6px rgba(36,31,27,0.1);}
+.authPreviewNote{
+  font-size:11px; color:var(--volt-deep); background:#FBF1DF; border-radius:8px; padding:8px 10px;
+  margin:0 0 16px; line-height:1.5;
+}
+.authLoadingNote{ font-size:12.5px; color:var(--muted); text-align:center; padding:20px 0;}
+#clerkAuthMount{ min-height:20px; display:flex; justify-content:center;}
+.authForm{ display:flex; flex-direction:column; gap:5px;}
+.fieldLabel{ font-size:11px; font-weight:700; color:var(--muted); margin-top:8px;}
+.fieldLabel:first-of-type{ margin-top:0;}
+.fieldInput{
+  border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-family:'Montserrat',sans-serif;
+  font-size:13.5px; background:#FDFBF6; margin-bottom:4px;
+}
+.fieldInput:focus{ outline:2px solid var(--volt); outline-offset:1px; border-color:var(--volt);}
+.domainNote{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); margin:6px 0 4px; line-height:1.5;}
+.authSubmit{
+  background:var(--rosa); color:#fff; border:none; border-radius:10px; padding:12px; font-size:13.5px;
+  font-weight:700; cursor:pointer; margin-top:10px; transition:background .15s;
+}
+.authSubmit:hover{ background:var(--rosa-deep);}
+.guestLink{
+  display:block; text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
+  text-decoration:none; font-weight:600;
+}
+.guestLink:hover{ color:var(--ink); text-decoration:underline;}
+
+/* ---- Contenido explicativo ---- */
+.content{ margin-bottom:40px;}
+.block{ margin-bottom:22px;}
+.eyebrow{
+  display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600;
+  color:var(--volt-deep); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;
+}
+.block h2{ font-size:19px; font-weight:700; margin:0 0 10px;}
+.block p{ font-size:14px; line-height:1.65; color:#463f37; margin:0 0 12px;}
+.block p:last-child{ margin-bottom:0;}
+.block a{ color:var(--rosa-deep); font-weight:600; text-decoration:none;}
+.block a:hover{ text-decoration:underline;}
+.divider{ height:1px; background:var(--line); margin:26px 0;}
+
+/* ---- Pie de página ---- */
+.pageFooter{
+  display:flex; flex-direction:column; gap:4px; align-items:center; text-align:center;
+  font-size:11.5px; color:var(--muted); padding-top:18px; border-top:1px solid var(--line);
+}
+.pageFooter a{ color:var(--muted); font-weight:600;}
+.pageFooter em{ font-style:normal; opacity:0.75;}
+.footerName{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; }
+
+@media (max-width:520px){
+  .page{ padding:40px 18px 32px; }
+  .hero h1{ font-size:27px; }
+  .authCard{ padding:18px 18px 22px; }
+}

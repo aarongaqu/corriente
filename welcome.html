@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corriente — Yucatán, en la misma corriente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/welcome.css">
+</head>
+<body>
+
+<main class="page">
+
+  <!-- ---- Hero ---- -->
+  <section class="hero">
+    <div class="brandMark">⚡</div>
+    <h1>Corriente</h1>
+    <svg class="wave" viewBox="0 0 240 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0 16 Q 20 2, 40 16 T 80 16 T 120 16 T 160 16 T 200 16 T 240 16" stroke="var(--volt)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <p class="tagline">¿Hay luz en Yucatán?</p>
+  </section>
+
+  <!-- ---- Tarjeta de sesión ---- -->
+  <section class="authCard" aria-label="Iniciar sesión o crear cuenta">
+    <p class="authLoadingNote" id="authLoadingNote">Cargando sesión…</p>
+
+    <!-- Aquí se monta el componente real de Clerk -->
+    <div id="clerkAuthMount"></div>
+
+    <a class="guestLink" href="index.html">Prefiero solo ver el mapa, sin cuenta →</a>
+  </section>
+
+  <!-- ---- Contenido explicativo ---- -->
+  <article class="content">
+
+    <section class="block">
+      <span class="eyebrow">Sobre Corriente</span>
+      <h2>¿Qué es esto?</h2>
+      <p>Creamos esta herramienta comunitaria para la consulta y señalamiento de incidentes en la red eléctrica de Yucatán, para las personas normales, para ti y para mí, de nosotros.</p>
+      <p>No esperamos reemplazar ni suplantar las plataformas oficiales de reportes de la CFE — el uso de esta herramienta es meramente recreativo y analítico. Si necesitas reportar una falla real en tu domicilio, usa los medios oficiales: línea <strong>071</strong> (disponible 24/7) o el sitio <a href="https://www.cfe.mx" target="_blank" rel="noopener">www.cfe.mx</a>.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="block">
+      <span class="eyebrow">Registro y ubicación</span>
+      <h2>¿Por qué te pedimos registrarte y tu ubicación?</h2>
+      <p>Esta herramienta es para la comunidad. La información que genere puede ser fácilmente manipulable por spam y por agentes externos con fines distintos al de informar. Con la intención de limitar lo más que podamos que nuestra información se comprometa, añadimos ciertas limitaciones: solo personas ubicadas en Yucatán pueden participar, y sin una cuenta registrada, no se puede colocar ningún reporte.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="block">
+      <span class="eyebrow">Tu información</span>
+      <h2>Cómo cuidamos tu información</h2>
+      <p>No tenemos intención de usar o almacenar datos personales más allá de los estrictamente necesarios para tu participación (tu correo, para evitar el spam y validar tu registro).</p>
+      <p>Los puntos que colocas en el mapa incluyen una ubicación — pero esa ubicación es la del <em>incidente que reportas</em>, no un rastro de dónde estás tú en cada momento. No relacionamos esos datos con tu ubicación actual ni te damos seguimiento. Se usan únicamente para el libre análisis de esta información como experimento recreativo y comunitario.</p>
+      <p>Aunque los puntos desaparecen del mapa 4 horas después de publicarse, el registro de esa actividad (sin tu correo asociado) se conserva por más tiempo con fines de análisis, hasta que el equipo administrativo decida limpiarlo.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="block">
+      <span class="eyebrow">Reglas de uso</span>
+      <h2>Política de uso</h2>
+      <p>El uso de esta página está sujeto a la decisión del equipo administrativo de restringir su uso a quien lo considere necesario. Tú eres responsable de lo que decides compartir aquí. No se tolerará contenido fuera del marco legal mexicano, ni que atente contra terceros.</p>
+      <p>La información que ves en el mapa es generada por la comunidad, no verificada por nosotros — trátala como una referencia informal, no como un reporte confirmado.</p>
+    </section>
+
+  </article>
+
+  <footer class="pageFooter">
+    <span>Contacto: <a href="mailto:contacto@tudominio.com">contacto@tudominio.com</a> <em>(correo pendiente hasta tener el dominio)</em></span>
+    <span class="footerName">Aarón García</span>
+  </footer>
+
+</main>
+
+<!-- ---- Clerk ----
+     Reemplaza estos dos valores por los tuyos:
+     - data-clerk-publishable-key: Clerk Dashboard → API Keys → Publishable key
+     - src: Clerk Dashboard → API Keys → Frontend API URL (agrega /npm/@clerk/clerk-js@5/dist/clerk.browser.js al final)
+-->
+<script
+  async
+  crossorigin="anonymous"
+  data-clerk-publishable-key="pk_test_dHJ1c3RlZC1wYW50aGVyLTQ5LmNsZXJrLmFjY291bnRzLmRldiQ"
+  src="https://trusted-panther-49.clerk.accounts.dev/npm/@clerk/clerk-js@5/dist/clerk.browser.js"
+  type="text/javascript">
+</script>
+<script>
+  const WELCOME_SEEN_KEY = 'corriente_welcome_seen'; // misma llave que usa app.js
+
+  document.querySelector('.guestLink').addEventListener('click', () => {
+    localStorage.setItem(WELCOME_SEEN_KEY, '1');
+  });
+
+  window.addEventListener('load', async function () {
+    await window.Clerk.load();
+    document.getElementById('authLoadingNote').style.display = 'none';
+
+    // Si ya hay sesión iniciada, no tiene sentido mostrar el formulario otra vez.
+    if (window.Clerk.user) {
+      localStorage.setItem(WELCOME_SEEN_KEY, '1');
+      window.location.href = 'index.html';
+      return;
+    }
+
+    window.Clerk.mountSignIn(document.getElementById('clerkAuthMount'));
+
+    // Si el usuario completa el registro/login en este formulario,
+    // Clerk redirige solo — configuramos a dónde:
+    window.Clerk.addListener(({ user }) => {
+      if (user) {
+        localStorage.setItem(WELCOME_SEEN_KEY, '1');
+        window.location.href = 'index.html';
+      }
+    });
+  });
+</script>
+</body>
+</html>
